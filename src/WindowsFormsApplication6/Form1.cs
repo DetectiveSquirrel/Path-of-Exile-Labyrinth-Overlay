@@ -18,7 +18,7 @@ namespace WindowsFormsApplication6
             public int Height { get; set; }
             public int Width { get; set; }
         }
-        
+
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindow(string strClassName, string strWindowName);
         [DllImport("user32.dll")]
@@ -79,16 +79,55 @@ namespace WindowsFormsApplication6
                     NotepadRect.Width = NotepadRect.Right - NotepadRect.Left + 1;
                     NotepadRect.Height = NotepadRect.Bottom - NotepadRect.Top + 1;
 
-                    this.Left = (NotepadRect.Width - this.Width) / 2 + NotepadRect.Left;
-                    this.Top = NotepadRect.Top;
+                    if (Properties.Settings.Default.Top)
+                    {
+                        this.Top = NotepadRect.Top;
+                        this.Left = (NotepadRect.Width - this.Width) / 2 + NotepadRect.Left;
+                    }
+                    if (Properties.Settings.Default.Bottom)
+                    {
+                        this.Top = NotepadRect.Bottom - this.Height;
+                        this.Left = (NotepadRect.Width - this.Width) / 2 + NotepadRect.Left;
+                    }
+                    if (Properties.Settings.Default.Left)
+                    {
+                        this.Top = (NotepadRect.Height - this.Height) / 2 + NotepadRect.Top;
+                        this.Left = NotepadRect.Left;
+                    }
+                    if (Properties.Settings.Default.Right)
+                    {
+                        this.Top = (NotepadRect.Height - this.Height) / 2 + NotepadRect.Top;
+                        this.Left = NotepadRect.Right - this.Width;
+                    }
+                    if (Properties.Settings.Default.TopLeft)
+                    {
+                        this.Top = NotepadRect.Top;
+                        this.Left = NotepadRect.Left;
+                    }
+                    if (Properties.Settings.Default.TopRight)
+                    {
+                        this.Top = NotepadRect.Top;
+                        this.Left = NotepadRect.Right - this.Width;
+                    }
+                    if (Properties.Settings.Default.BottomLeft)
+                    {
+                        this.Top = NotepadRect.Bottom - this.Height;
+                        this.Left = NotepadRect.Left;
+                    }
+                    if (Properties.Settings.Default.BottomRight)
+                    {
+                        this.Top = NotepadRect.Bottom - this.Height;
+                        this.Left = NotepadRect.Right - this.Width;
+                    }
                 }
                 else
                 {
                     // Throw that shit somewhere non visable because minimizing back and forth just caused fat ass hell issues that i didnt want to deal with
                     this.Left = 999999;
                     this.Top = 999999;
-                } 
-            } else
+                }
+            }
+            else
             {
                 this.Close();
             }
@@ -107,7 +146,7 @@ namespace WindowsFormsApplication6
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         // Pretty useless now that im drawing it on path of exile window only when main focus
@@ -145,6 +184,115 @@ namespace WindowsFormsApplication6
             }
 
             return null;
+        }
+
+        private void topToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = true;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void bottomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = true;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = true;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = true;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void topLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = true;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void topRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = true;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void bottomLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = true;
+            Properties.Settings.Default.BottomRight = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void bottomRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Top = false;
+            Properties.Settings.Default.Bottom = false;
+            Properties.Settings.Default.Left = false;
+            Properties.Settings.Default.Right = false;
+            Properties.Settings.Default.TopRight = false;
+            Properties.Settings.Default.TopLeft = false;
+            Properties.Settings.Default.BottomLeft = false;
+            Properties.Settings.Default.BottomRight = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
