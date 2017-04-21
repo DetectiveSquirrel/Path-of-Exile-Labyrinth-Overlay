@@ -14,4 +14,4 @@ Video Example: https://youtu.be/IVirIXSBl9Q
 
 Preview
 
-![alt tag](http://puu.sh/vqh5v/4067bdbe84.jpg)
+![alt tag](https://puu.sh/vrbtL/5835575337.jpg)
